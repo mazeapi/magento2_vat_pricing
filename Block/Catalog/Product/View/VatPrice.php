@@ -53,6 +53,16 @@ class VatPrice extends \Magento\Framework\View\Element\Template
         parent::__construct($context, $data);
     }
 
+    public function getIncludeText()
+    {
+        return '<span class="vat-info-text">' . __('(Incl. Moms)') . '</span>';
+    }
+
+    public function getExcludeText()
+    {
+        return '<span class="vat-info-text">' . __('(Excl. Moms)') . '</span>';
+    }
+
     /**
      * @return  array|float
      */
@@ -85,8 +95,21 @@ class VatPrice extends \Magento\Framework\View\Element\Template
 
     public function getProductFormattedPrice()
     {
-        $price = $this->getProductFinalPrice();
-        return $this->_priceHelper->currency($price, true, false);
+        if ($this->_customerSession->isLoggedIn()) {
+            $customerGroupId = $this->_customerSession->getCustomerGroupId();
+            if (in_array($customerGroupId, explode(',',$this->_vatHelper->getCustomerGroup()))) {
+                $price = $this->getProductPrice() + $this->getVatAmount();
+                $price = $this->_priceHelper->currency($price, true, false);
+                return $price.$this->getIncludeText();
+            } else {
+                $price = $this->getProductPrice();
+                $price = $this->_priceHelper->currency($price, true, false);
+            }
+        } else {
+            $price = $this->getProductPrice();
+            $price = $this->_priceHelper->currency($price, true, false);
+        }
+        return $price.$this->getExcludeText();
     }
 
     public function getPriceIncludeVat()
