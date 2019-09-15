@@ -1,10 +1,18 @@
 <?php
 /**
- * @var Mazeapi\VatPrice\Catalog\Product\View\VatPrice $block
+ * @var Mazeapi\VatPrice\Block\Catalog\Product\View\VatPrice $block
  */
 ?>
 
-<div class="new-price">
-    <?= $block->getPrice(); ?>
-    <?= $block->getVatAmount(); ?>
+<div class="price-box price-final_price" data-role="priceBox" data-product-id="1562" data-price-box="product-id-1562">
+    <span class="normal-price">
+        <span class="price-container price-final_price tax weee" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+            <span class="price-label">As low as</span>
+            <span id="product-price-1562" data-price-amount="<?= $block->getProductFinalPrice() ?>" data-price-type="finalPrice" class="price-wrapper ">
+                <span class="price"><?= $block->getPriceIncludeVat() ?></span>
+            </span>
+            <meta itemprop="price" content="<?= $block->getProductFinalPrice() ?>">
+            <meta itemprop="priceCurrency" content="USD">
+        </span>
+    </span>
 </div>

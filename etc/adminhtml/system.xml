@@ -3,7 +3,7 @@
 /**
  * Mazeapi Software.
  *
- * @package   Mazeapi_ForceLogin
+ * @package   Mazeapi_VatPrice
  * @author    Mazeapi
  * @author    Iftakharul Alam <bappa2du@gmail.com>
  * @license   https://mazeapi.com/license.html
@@ -17,9 +17,9 @@
         <section id="mazeapi_core_settings" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Settings</label>
             <tab>mazeapi</tab>
-            <resource>Mazeapi_ForceLogin::GeneralSettings</resource>
+            <resource>Mazeapi_VatPrice::GeneralSettings</resource>
             <group id="product_vat_pricing" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Force Login Settings</label>
+                <label>Product VAT Pricing</label>
                 <field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -27,6 +27,14 @@
                 </field>
                 <field id="vat_amount" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>VAT Amount(%)</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="customer_group" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Select Customer Group</label>
+                    <source_model>Mazeapi\VatPrice\Model\Config\Source\CustomerGroup</source_model>
+                    <comment>Select customer group for which include vat/moms will active</comment>
                 </field>
             </group>
         </section>

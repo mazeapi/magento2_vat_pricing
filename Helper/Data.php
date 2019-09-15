@@ -43,4 +43,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return trim($this->_adminSettings['product_vat_pricing']['vat_amount']);
     }
+
+    public function getCustomerGroup()
+    {
+        return $this->_adminSettings['product_vat_pricing']['customer_group'];
+    }
 }
