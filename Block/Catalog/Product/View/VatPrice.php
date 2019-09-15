@@ -95,21 +95,25 @@ class VatPrice extends \Magento\Framework\View\Element\Template
 
     public function getProductFormattedPrice()
     {
-        if ($this->_customerSession->isLoggedIn()) {
-            $customerGroupId = $this->_customerSession->getCustomerGroupId();
-            if (in_array($customerGroupId, explode(',',$this->_vatHelper->getCustomerGroup()))) {
-                $price = $this->getProductPrice() + $this->getVatAmount();
-                $price = $this->_priceHelper->currency($price, true, false);
-                return $price.$this->getIncludeText();
+        if($this->_vatHelper->isVatPricingEnable()) {
+            if ($this->_customerSession->isLoggedIn()) {
+                $customerGroupId = $this->_customerSession->getCustomerGroupId();
+                if (in_array($customerGroupId, explode(',', $this->_vatHelper->getCustomerGroup()))) {
+                    $price = $this->getProductPrice() + $this->getVatAmount();
+                    $price = $this->_priceHelper->currency($price, true, false);
+                    return $price . $this->getIncludeText();
+                } else {
+                    $price = $this->getProductPrice();
+                    $price = $this->_priceHelper->currency($price, true, false);
+                }
             } else {
                 $price = $this->getProductPrice();
                 $price = $this->_priceHelper->currency($price, true, false);
             }
-        } else {
-            $price = $this->getProductPrice();
-            $price = $this->_priceHelper->currency($price, true, false);
+            return $price.$this->getExcludeText();
         }
-        return $price.$this->getExcludeText();
+        $price = $this->getProductPrice();
+        return $this->_priceHelper->currency($price, true, false);
     }
 
     public function getPriceIncludeVat()
