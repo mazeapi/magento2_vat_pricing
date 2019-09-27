@@ -15,26 +15,37 @@
             <label>Mazeapi</label>
         </tab>
         <section id="mazeapi_core_settings" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>Settings</label>
+            <label>Product VAT Pricing</label>
             <tab>mazeapi</tab>
             <resource>Mazeapi_VatPrice::GeneralSettings</resource>
             <group id="product_vat_pricing" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Product VAT Pricing</label>
-                <field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Enable/Disable Product VAT Pricing.</comment>
                 </field>
-                <field id="vat_amount" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="vat_amount" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>VAT Amount(%)</label>
                     <depends>
                         <field id="enable">1</field>
                     </depends>
                 </field>
-                <field id="customer_group" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="customer_group" translate="label" type="multiselect" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Select Customer Group</label>
                     <source_model>Mazeapi\VatPrice\Model\Config\Source\CustomerGroup</source_model>
                     <comment>Select customer group for which include vat/moms will active</comment>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="product_price_type" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Product Price Type</label>
+                    <source_model>Mazeapi\VatPrice\Model\Config\Source\ProductPriceType</source_model>
+                    <comment>Is product price is inclusive or exclusive VAT</comment>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
                 </field>
             </group>
         </section>

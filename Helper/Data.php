@@ -20,9 +20,10 @@ class Data extends AbstractHelper
     /**
      * Config paths
      */
-    const XML_PATH_ENABLED        = 'mazeapi_core_settings/product_vat_pricing/enabled';
-    const XML_PATH_VAT_AMOUNT     = 'mazeapi_core_settings/product_vat_pricing/vat_amount';
-    const XML_PATH_CUSTOMER_GROUP = 'mazeapi_core_settings/product_vat_pricing/customer_group';
+    const XML_PATH_ENABLE            = 'mazeapi_core_settings/product_vat_pricing/enable';
+    const XML_PATH_VAT_AMOUNT         = 'mazeapi_core_settings/product_vat_pricing/vat_amount';
+    const XML_PATH_CUSTOMER_GROUP     = 'mazeapi_core_settings/product_vat_pricing/customer_group';
+    const XML_PATH_PRODUCT_PRICE_TYPE = 'mazeapi_core_settings/product_vat_pricing/product_price_type';
 
     /**
      * @var ScopeConfigInterface
@@ -48,7 +49,7 @@ class Data extends AbstractHelper
      */
     public function isVatPricingEnable()
     {
-        return $this->scopeConfig->getValue(self::XML_PATH_ENABLED);
+        return $this->scopeConfig->getValue(self::XML_PATH_ENABLE);
     }
 
     /**
@@ -60,10 +61,20 @@ class Data extends AbstractHelper
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getCustomerGroup()
     {
-        return $this->scopeConfig->getValue(self::XML_PATH_CUSTOMER_GROUP);
+        $result = $this->scopeConfig->getValue(self::XML_PATH_CUSTOMER_GROUP);
+        return explode(',', $result);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getProductPriceType()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_PRODUCT_PRICE_TYPE);
+    }
+
 }
